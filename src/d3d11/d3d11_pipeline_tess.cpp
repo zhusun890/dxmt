@@ -237,8 +237,12 @@ public:
           return function_;
         });
     if (pDesc->PixelShader) {
-      // TODO: sample mask
-      pDesc->PixelShader->GetCompiledShader(&PixelShader);
+      if (pDesc->SampleMask != D3D11_DEFAULT_SAMPLE_MASK) {
+        pDesc->PixelShader->GetCompiledPixelShaderWithSampleMask(
+            pDesc->SampleMask, &PixelShader);
+      } else {
+        pDesc->PixelShader->GetCompiledShader(&PixelShader);
+      }
     }
     hull_reflection = *pDesc->HullShader->GetReflection();
     VertexShader->SubmitWork();
