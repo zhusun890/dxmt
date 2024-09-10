@@ -750,7 +750,7 @@ public:
 #pragma region DrawCall
 
   void Draw(UINT VertexCount, UINT StartVertexLocation) override {
-    if (!ctx.PreDraw(false))
+    if (!ctx.PreDraw<false>())
       return;
     auto [Primitive, ControlPointCount] =
         to_metal_topology(state_.InputAssembler.Topology);
@@ -767,7 +767,7 @@ public:
 
   void DrawIndexed(UINT IndexCount, UINT StartIndexLocation,
                    INT BaseVertexLocation) override {
-    if (!ctx.PreDraw(true))
+    if (!ctx.PreDraw<true>())
       return;
     auto [Primitive, ControlPointCount] =
         to_metal_topology(state_.InputAssembler.Topology);
@@ -799,7 +799,7 @@ public:
   void DrawInstanced(UINT VertexCountPerInstance, UINT InstanceCount,
                      UINT StartVertexLocation,
                      UINT StartInstanceLocation) override {
-    if (!ctx.PreDraw(false))
+    if (!ctx.PreDraw<false>())
       return;
     auto [Primitive, ControlPointCount] =
         to_metal_topology(state_.InputAssembler.Topology);
@@ -821,7 +821,7 @@ public:
   void DrawIndexedInstanced(UINT IndexCountPerInstance, UINT InstanceCount,
                             UINT StartIndexLocation, INT BaseVertexLocation,
                             UINT StartInstanceLocation) override {
-    if (!ctx.PreDraw(true))
+    if (!ctx.PreDraw<true>())
       return;
     auto [Primitive, ControlPointCount] =
         to_metal_topology(state_.InputAssembler.Topology);
@@ -992,7 +992,7 @@ public:
 
   void DrawIndexedInstancedIndirect(ID3D11Buffer *pBufferForArgs,
                                     UINT AlignedByteOffsetForArgs) override {
-    if (!ctx.PreDraw(true))
+    if (!ctx.PreDraw<true>())
       return;
     auto currentChunkId = cmd_queue.CurrentSeqId();
     auto [Primitive, ControlPointCount] =
