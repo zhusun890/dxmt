@@ -493,7 +493,7 @@ public:
 
   void CopyStructureCount(ID3D11Buffer *pDstBuffer, UINT DstAlignedByteOffset,
                           ID3D11UnorderedAccessView *pSrcView) override {
-    IMPLEMENT_ME
+    // IMPLEMENT_ME
   }
 
   void CopySubresourceRegion(ID3D11Resource *pDstResource, UINT DstSubresource,

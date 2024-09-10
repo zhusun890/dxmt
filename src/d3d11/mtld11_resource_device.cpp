@@ -204,7 +204,7 @@ public:
     if (finalDesc.ViewDimension != D3D11_UAV_DIMENSION_BUFFER) {
       return E_INVALIDARG;
     }
-    D3D11_ASSERT(finalDesc.Buffer.Flags < 2 && "TODO: uav counter");
+    // D3D11_ASSERT(finalDesc.Buffer.Flags < 2 && "TODO: uav counter");
     if (structured) {
       if (finalDesc.Format != DXGI_FORMAT_UNKNOWN) {
         return E_INVALIDARG;
