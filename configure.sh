@@ -15,7 +15,7 @@ rm ./llvm.tar.xz
 # I don't really know what version of llvm it should be
 git clone --depth 1 --branch llvmorg-15.0.7 https://github.com/llvm/llvm-project.git toolchains/llvm-project 
 mkdir -p ./toolchains/llvm-build
-cmake -B ./toolchains/llvm-build -S ./toolchains/llvm-project/llvm -DCMAKE_SYSTEM_NAME=Windows \
+/usr/local/bin/cmake -B ./toolchains/llvm-build -S ./toolchains/llvm-project/llvm -DCMAKE_SYSTEM_NAME=Windows \
   -DCMAKE_INSTALL_PREFIX="$(pwd)/toolchains/llvm" \
   -DLLVM_HOST_TRIPLE=x86_64-w64-mingw32 \
   -DLLVM_TARGETS_TO_BUILD=X86 \
@@ -31,12 +31,12 @@ cmake -B ./toolchains/llvm-build -S ./toolchains/llvm-project/llvm -DCMAKE_SYSTE
   -DLLVM_VERSION_PRINTER_SHOW_HOST_TARGET_INFO=Off \
   -G Ninja
 pushd ./toolchains/llvm-build
-ninja
-ninja install
+/usr/local/bin/ninja
+/usr/local/bin/ninja install
 popd
 
 mkdir -p ./toolchains/llvm-darwin-build
-cmake -B ./toolchains/llvm-darwin-build -S ./toolchains/llvm-project/llvm \
+/usr/local/bin/cmake -B ./toolchains/llvm-darwin-build -S ./toolchains/llvm-project/llvm \
   -DCMAKE_INSTALL_PREFIX="$(pwd)/toolchains/llvm-darwin" \
   -DLLVM_ENABLE_ASSERTIONS=On \
   -DLLVM_ENABLE_ZSTD=Off \
@@ -48,8 +48,8 @@ cmake -B ./toolchains/llvm-darwin-build -S ./toolchains/llvm-project/llvm \
   -DLLVM_VERSION_PRINTER_SHOW_HOST_TARGET_INFO=Off \
   -G Ninja
 pushd ./toolchains/llvm-darwin-build
-ninja
-ninja install
+/usr/local/bin/ninja
+/usr/local/bin/ninja install
 popd
 ## configure
 # export PATH="$PATH:$(pwd)/toolchains/llvm-mingw-20231017-ucrt-macos-universal/bin"
