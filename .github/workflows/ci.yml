@@ -47,8 +47,10 @@ jobs:
         with:
           name: artifacts
           path: artifacts.tar.gz
+      - name: Tar cache
+        run: tar -zcf cache.tar.gz toolchains
       - name: Upload cache as artifact
         uses: actions/upload-artifact@v4
         with:
           name: toolchains-cache
-          path: ./toolchains
+          path: cache.tar.gz
