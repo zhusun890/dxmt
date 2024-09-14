@@ -166,6 +166,10 @@ public:
     return 0;
   }
 
+  uint32_t raw_offset() const {
+    return byte_offset;
+  }
+
   MTL::Buffer *counter() const {
     if (((uint64_t)type & (uint64_t)Type::UAVWithCounter) ==
         (uint64_t)Type::UAVWithCounter) {

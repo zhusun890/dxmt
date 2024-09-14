@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BackendCodeEditorMiscSettings">
+    <option name="/Default/RiderDebugger/RiderRestoreDecompile/RestoreDecompileSetting/@EntryValue" value="false" type="bool" />
+    <option name="/Default/Housekeeping/GlobalSettingsUpgraded/IsUpgraded/@EntryValue" value="true" type="bool" />
+    <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexedValue" value="true" type="bool" />
+    <option name="/Default/Environment/Hierarchy/GeneratedFilesCacheKey/Timestamp/@EntryValue" value="4" type="long" />
+    <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexRemoved" />
+  </component>
+  <component name="CMakePythonSetting">
+    <option name="pythonIntegrationState" value="YES" />
+  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MesonSettings">
+    <option name="linkedExternalProjectsSettings">
+      <MesonProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+          </set>
+        </option>
+        <option name="profiles">
+          <MesonProfile>
+            <option name="buildDir" value="build" />
+            <option name="buildOptions">
+              <list>
+                <option value="--buildtype" />
+                <option value="debugoptimized" />
+              </list>
+            </option>
+            <option name="mesonExecutable" value="/usr/local/bin/meson" />
+            <option name="setupOptions">
+              <list>
+                <option value="--cross-file" />
+                <option value="build-win64.txt" />
+                <option value="--native-file" />
+                <option value="build-osx.txt" />
+                <option value="-Dlocal_native_llvm=true" />
+                <option value="-Dbuild_airconv_for_windows=true" />
+              </list>
+            </option>
+          </MesonProfile>
+        </option>
+      </MesonProjectSettings>
+    </option>
+  </component>
+  <component name="MesonWorkspace" PROJECT_DIR="$PROJECT_DIR$" />
+</project>

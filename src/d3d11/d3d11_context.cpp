@@ -491,9 +491,10 @@ public:
     }
   }
 
+
   void CopyStructureCount(ID3D11Buffer *pDstBuffer, UINT DstAlignedByteOffset,
                           ID3D11UnorderedAccessView *pSrcView) override {
-    // IMPLEMENT_ME
+    // Retrieve the resource associated with the source UAV
   }
 
   void CopySubresourceRegion(ID3D11Resource *pDstResource, UINT DstSubresource,

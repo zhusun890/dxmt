@@ -1,0 +1,5 @@
+cp ./build/src/d3d10/d3d10core.dll "/Users/zhusun/Library/Application Support/Yaagl HSR/dxmt/d3d10core.dll"
+cp ./build/src/d3d11/d3d11.dll "/Users/zhusun/Library/Application Support/Yaagl HSR/dxmt/d3d11.dll"
+cp ./build/src/dxgi/dxgi.dll "/Users/zhusun/Library/Application Support/Yaagl HSR/dxmt/dxgi.dll"
+cp ./build/src/winemetal/unix/winemetal.so "/Users/zhusun/Library/Application Support/Yaagl HSR/wine/lib/wine/x86_64-unix/winemetal.so"
+cp ./build/src/winemetal/winemetal.dll "/Users/zhusun/Library/Application Support/Yaagl HSR/wine/lib/wine/x86_64-windows/winemetal.dll"

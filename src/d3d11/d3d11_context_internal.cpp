@@ -1943,8 +1943,16 @@ public:
             }
           }
           if (arg.Flags & MTL_SM50_SHADER_ARGUMENT_UAV_COUNTER) {
-            ERR("todo: implement uav counter binding");
-            return false;
+            auto counter_ref = uav.View->UseBindable(currentChunkId);
+            
+            if (!counter_ref) {
+                ERR("Failed to get counter reference for UAV at slot ", slot);
+                return false;
+            }
+            
+            useResource(std::move(counter_ref), GetResidencyMask(stage, true, false));
+            
+            write_to_it[arg.StructurePtrOffset + 2] = reinterpret_cast<uint64_t>(counter_ref.counter());
           }
           UAVBindingSet.clear_dirty(slot);
           pTracker->CheckResidency(

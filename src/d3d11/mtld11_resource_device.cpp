@@ -205,6 +205,29 @@ public:
       return E_INVALIDARG;
     }
     // D3D11_ASSERT(finalDesc.Buffer.Flags < 2 && "TODO: uav counter");
+    if (finalDesc.Buffer.Flags & (D3D11_BUFFER_UAV_FLAG_APPEND | D3D11_BUFFER_UAV_FLAG_COUNTER)) {        
+        MTL::Buffer* metalBuffer = CreateMetalBufferForCounter();
+        if (!metalBuffer) {
+            return E_FAIL;
+        }
+
+              uint32_t offset, size;
+      CalculateBufferViewOffsetAndSize(
+          desc, sizeof(uint32_t), finalDesc.Buffer.FirstElement,
+          finalDesc.Buffer.NumElements, offset, size);
+
+        *ppView = ref(new UAV(
+            &finalDesc, this, m_parent,
+            ArgumentData(metalBuffer->gpuAddress() + offset, size),
+            [metalBuffer](auto _this) {
+                return BindingRef(
+                    static_cast<ID3D11UnorderedAccessView *>(_this),
+                    metalBuffer
+                );
+            }
+        ));
+
+    }
     if (structured) {
       if (finalDesc.Format != DXGI_FORMAT_UNKNOWN) {
         return E_INVALIDARG;
@@ -255,6 +278,23 @@ public:
                           }));
     return S_OK;
   };
+
+MTL::Buffer* CreateMetalBufferForCounter() {
+    MTL::Device* device = m_parent->GetMTLDevice();
+    
+    NS::UInteger bufferSize = sizeof(uint32_t); 
+
+    MTL::Buffer* metalBuffer = device->newBuffer(bufferSize, MTL::ResourceStorageModeManaged);
+    if (!metalBuffer) {
+        return nullptr;
+    }
+
+    uint32_t initialCounterValue = 0;
+    void* bufferPointer = metalBuffer->contents();
+    memcpy(bufferPointer, &initialCounterValue, sizeof(initialCounterValue));
+
+    return metalBuffer;
+}
 
   HRESULT CreateRenderTargetView(const D3D11_RENDER_TARGET_VIEW_DESC1 *desc,
                                  ID3D11RenderTargetView1 **ppView) override {
