@@ -44,12 +44,13 @@ public:
 
   BindingRef UseBindable(uint64_t seq_id) override {
     occupancy.MarkAsOccupied(seq_id);
-    return BindingRef(static_cast<ID3D11DeviceChild *>(this), buffer.ptr());
+    return BindingRef(static_cast<ID3D11DeviceChild *>(this), buffer.ptr(),
+                      desc.ByteWidth, 0);
   };
 
   ArgumentData GetArgumentData(SIMPLE_RESIDENCY_TRACKER **ppTracker) override {
     *ppTracker = &residency;
-    return ArgumentData(buffer_handle);
+    return ArgumentData(buffer_handle, desc.ByteWidth);
   }
 
   bool GetContentionState(uint64_t finished_seq_id) override {
@@ -205,29 +206,8 @@ public:
       return E_INVALIDARG;
     }
     // D3D11_ASSERT(finalDesc.Buffer.Flags < 2 && "TODO: uav counter");
-    if (finalDesc.Buffer.Flags & (D3D11_BUFFER_UAV_FLAG_APPEND | D3D11_BUFFER_UAV_FLAG_COUNTER)) {        
-        MTL::Buffer* metalBuffer = CreateMetalBufferForCounter();
-        if (!metalBuffer) {
-            return E_FAIL;
-        }
-
-              uint32_t offset, size;
-      CalculateBufferViewOffsetAndSize(
-          desc, sizeof(uint32_t), finalDesc.Buffer.FirstElement,
-          finalDesc.Buffer.NumElements, offset, size);
-
-        *ppView = ref(new UAV(
-            &finalDesc, this, m_parent,
-            ArgumentData(metalBuffer->gpuAddress() + offset, size),
-            [metalBuffer](auto _this) {
-                return BindingRef(
-                    static_cast<ID3D11UnorderedAccessView *>(_this),
-                    metalBuffer
-                );
-            }
-        ));
-
-    }
+    // if (finalDesc.Buffer.Flags & (D3D11_BUFFER_UAV_FLAG_APPEND | D3D11_BUFFER_UAV_FLAG_COUNTER)) {        
+    // }
     if (structured) {
       if (finalDesc.Format != DXGI_FORMAT_UNKNOWN) {
         return E_INVALIDARG;
